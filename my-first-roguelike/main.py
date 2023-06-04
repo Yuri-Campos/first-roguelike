@@ -32,6 +32,16 @@ def main():
             context.present(root_console)
 
             root_console.clear()
-            
+
+            for event in tcod.event.wait():
+                action = event_handler.dispatch(event)
+                if action is None:
+                    continue
+                if isinstance(action, MovementAction):
+                    player_x += action.dx
+                    player_y += action.dy
+                elif isinstance(action, EscapeAction):
+                    raise SystemExit()
+                
 if __name__ == '__main__':
     main()
