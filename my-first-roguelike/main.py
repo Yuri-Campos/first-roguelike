@@ -10,10 +10,10 @@ def main():
     # Player position
     # Will be the middle of the screen for now
     player_x = int(screen_width/2) 
-    player_y = int(screen_width/2)
+    player_y = int(screen_height/2)
 
     # Reading and Storing the tileset
-    tileset = tcod.load_tilesheet('tileset.png', 32, 8, tcod.tileset.CHARMAP_TCOD)
+    tileset = tcod.tileset.load_tilesheet('tileset.png', 32, 8, tcod.tileset.CHARMAP_TCOD)
 
     event_handler = EventHandler()
 
@@ -24,7 +24,7 @@ def main():
         title='My First Roguelike',
         vsync=True,
     )as context:
-        root_console = tcod.console(screen_width,screen_height, order='F')
+        root_console = tcod.Console(screen_width, screen_height, order='F')
 
         while True:
             root_console.print(x = player_x, y = player_y, string = '@')
