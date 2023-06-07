@@ -20,8 +20,8 @@ tile_data = np.dtype(
 
 def new_tile(
         *,
-        walkable: int,
-        transparent: int,
+        walkable: bool,
+        transparent: bool,
         dark: Tuple[int, Tuple[int, int, int ], Tuple[int, int, int]]
 ) -> np.ndarray:
     return np.array((walkable, transparent, dark), dtype = tile_data)
