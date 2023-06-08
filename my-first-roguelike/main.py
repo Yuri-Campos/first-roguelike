@@ -2,14 +2,17 @@ import tcod
 
 from engine import Engine
 from entity import Entity
+from game_map import GameMap
 from input_handlers import EventHandler
 
 
-def main():
+def main() -> None:
     # Variables that hold the size of our tcod screen
     screen_width = 80 # this will be read from a JSON file in the future
     screen_height = 50 # same
 
+    map_width = 80
+    map_height = 45
 
     # Reading and Storing the tileset
     tileset = tcod.tileset.load_tilesheet('tileset.png', 32, 8, tcod.tileset.CHARMAP_TCOD)
@@ -20,12 +23,12 @@ def main():
     player = Entity(int(screen_width/2), int(screen_height/2), '@', (255,255,255))
     npc = Entity(int(screen_width/2 - 5), int(screen_height/2), '@', (255,255,0))
 
+    game_map = GameMap(map_width, map_height)
     # Storing the entities in a set 
     entities = {npc, player}
 
-    # Instantiating a Engine() object and passing the entities set, event_handler object and player entity
-    engine = Engine(entities=entities, event_handler=event_handler, player=player)
-
+    # Instantiating a Engine() object and passing the entities set, event_handler object, player entity and map
+    engine = Engine(entities=entities,event_handler=event_handler,game_map=game_map, player=player)
     # ("Opening") Creating the context, passing the screen size, the tileset used by the context and the title
     '''
     In this case vsync is set to True but it doesn't matter that much in that case since vsync main function is syncing
