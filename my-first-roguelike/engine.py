@@ -2,7 +2,7 @@ from typing import Set, Iterable, Any
 
 from tcod.context import Context
 from tcod.console import Console
-
+from tcod.map import compute_fov
 
 from entity import Entity
 from game_map import GameMap
@@ -19,6 +19,7 @@ class Engine:
         self.game_map = game_map
         self.event_handler = event_handler
         self.player = player
+        self.update_fov()
 
     ''' 
     The handle_events function will take an Iterable of events and dispatch it to the event_handler.
@@ -38,6 +39,14 @@ class Engine:
             #checking if the action object is an instance of the MovementAction or EscapeAction classes.
             action.perform(self, self.player)
 
+            self.update_fov()
+    def update_fov(self) -> None:
+        self.game_map.visible[:] = compute_fov(
+            self.game_map.tiles['transparent'],
+            (self.player.x, self.player.y),
+            radius=8
+        )
+        self.game_map.explored |= self.game_map.visible
     '''
     This is our render. He takes the tcod console and context created on the main funtcion and render 
     all the entities on it.
@@ -47,7 +56,8 @@ class Engine:
         self.game_map.render(console)
         # getting all the entities in the class iterable and printing them on the console
         for entity in self.entities:
-            console.print(entity.x, entity.y, entity.char, fg = entity.color)
+            if self.game_map.visible[entity.x, entity.y]:
+                console.print(entity.x, entity.y, entity.char, fg=entity.color)
 
         # presenting the console with the entities
         context.present(console)
