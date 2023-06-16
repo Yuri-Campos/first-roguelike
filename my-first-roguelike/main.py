@@ -13,6 +13,10 @@ def main() -> None:
     map_width = 80
     map_height = 45
 
+    room_max_size = 10
+    room_min_size = 6
+    max_rooms = 30
+
     # Reading and Storing the tileset
     tileset = tcod.tileset.load_tilesheet('tileset.png', 32, 8, tcod.tileset.CHARMAP_TCOD)
 
@@ -22,7 +26,12 @@ def main() -> None:
     player = Entity(int(screen_width/2), int(screen_height/2), '@', (255,255,255))
     npc = Entity(int(screen_width/2 - 5), int(screen_height/2), '@', (255,255,0))
 
-    game_map = generate_dungeon(map_width, map_height)
+    game_map = generate_dungeon(max_rooms=max_rooms, 
+                                room_min_size=room_min_size, 
+                                room_max_size=room_max_size,
+                                map_width=map_width,
+                                map_height=map_height,
+                                player=player)
     # Storing the entities in a set 
     entities = {npc, player}
 
