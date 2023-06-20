@@ -43,6 +43,22 @@ class RectangularRoom():
     def intersects(self, other: RectangularRoom) -> bool:
         return(self.x1 <= other.x2 and self.x2 >= other.x1 and self.y1 <= other.y2 and self.y2 >= other.y1)
 
+
+def place_entities(
+        room: RectangularRoom, dungeon: GameMap, max_enemies: int,
+) -> None:
+    number_of_enemies = random.randint(0, max_enemies)
+
+    for i in range(number_of_enemies):
+        x = random.randint(room.x1 + 1, room.x2 - 1)
+        y = random.randint(room.y1 + 1, room.y2 - 1)
+
+        if not any(entity.x == x and entity.y == y for entity in dungeon.entities):
+            if random.random() < 0.8:
+                pass #TODO: Add grunt here
+            else:
+                pass #TODO: Add pmc here
+
 def tunnel_between(start: Tuple[int, int], end: Tuple[int, int]) -> Iterator[Tuple[int, int]]:
     x1, y1 = start
     x2, y2 = end
@@ -62,9 +78,10 @@ def generate_dungeon(max_rooms: int,
                      room_max_size: int, 
                      map_width:int,
                      map_height: int,
+                    max_enemy_per_room: int,
                      player: Entity) -> GameMap:
     
-    dungeon = GameMap(map_width, map_height)
+    dungeon = GameMap(map_width, map_height, entities=[player])
 
     rooms: List[RectangularRoom] = []
 
@@ -87,7 +104,9 @@ def generate_dungeon(max_rooms: int,
         else:
             for x, y in tunnel_between(rooms[-1].center, new_room.center):
                 dungeon.tiles[x, y] = tile_types.floor
-            
+
+        place_entities(new_room, dungeon, max_enemy_per_room)     
+
         rooms.append(new_room)
 
     return dungeon 

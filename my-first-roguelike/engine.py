@@ -53,5 +53,8 @@ class Engine:
     def render(self, console: Console, context: Context) -> None:
 
         self.game_map.render(console)
-        # getting all the entities in the class iterable and printing them on the console
+        
+        context.present(console)
+
+        console.clear()
     
