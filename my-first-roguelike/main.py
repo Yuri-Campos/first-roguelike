@@ -24,7 +24,7 @@ def main() -> None:
     event_handler = EventHandler()
     # Instantiating a NPC and Player entities
     player = Entity(int(screen_width/2), int(screen_height/2), '@', (255,255,255))
-    npc = Entity(int(screen_width/2 - 5), int(screen_height/2), '@', (255,255,0))
+
 
     game_map = generate_dungeon(max_rooms=max_rooms, 
                                 room_min_size=room_min_size, 
@@ -32,11 +32,12 @@ def main() -> None:
                                 map_width=map_width,
                                 map_height=map_height,
                                 player=player)
-    # Storing the entities in a set 
-    entities = {npc, player}
+
 
     # Instantiating a Engine() object and passing the entities set, event_handler object, player entity and map
-    engine = Engine(entities=entities,event_handler=event_handler,game_map=game_map, player=player)
+    engine = Engine(event_handler=event_handler,game_map=game_map, player=player)
+
+
     # ("Opening") Creating the context, passing the screen size, the tileset used by the context and the title
     '''
     In this case vsync is set to True but it doesn't matter that much in that case since vsync main function is syncing

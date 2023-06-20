@@ -1,4 +1,4 @@
-from typing import Set, Iterable, Any
+from typing import Iterable, Any
 
 from tcod.context import Context
 from tcod.console import Console
@@ -14,8 +14,7 @@ class Engine:
     Constructor of the class contains a set of entities (created on the main for now), an event_handler 
     object of the subclass EventHandler, child of the tcod EventDispatch, and a player entity 
     '''
-    def __init__(self, entities: Set[Entity], event_handler:EventHandler, game_map: GameMap, player: Entity):
-        self.entities = entities
+    def __init__(self, event_handler:EventHandler, game_map: GameMap, player: Entity):
         self.game_map = game_map
         self.event_handler = event_handler
         self.player = player
@@ -55,12 +54,4 @@ class Engine:
 
         self.game_map.render(console)
         # getting all the entities in the class iterable and printing them on the console
-        for entity in self.entities:
-            if self.game_map.visible[entity.x, entity.y]:
-                console.print(entity.x, entity.y, entity.char, fg=entity.color)
-
-        # presenting the console with the entities
-        context.present(console)
-
-        # clearing the console (This will allow us to refresh the entity parametres like it's position)
-        console.clear()    
+    
