@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Iterable, TYPE_CHECKING
+from typing import Iterable, Optional ,TYPE_CHECKING
 
 import numpy as np
 from tcod.console import Console
