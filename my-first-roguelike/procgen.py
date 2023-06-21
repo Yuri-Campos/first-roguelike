@@ -55,9 +55,9 @@ def place_entities(
 
         if not any(entity.x == x and entity.y == y for entity in dungeon.entities):
             if random.random() < 0.8:
-                pass #TODO: Add grunt here
+                pass #TODO: Add infantry here
             else:
-                pass #TODO: Add pmc here
+                pass #TODO: Add machineman here
 
 def tunnel_between(start: Tuple[int, int], end: Tuple[int, int]) -> Iterator[Tuple[int, int]]:
     x1, y1 = start
