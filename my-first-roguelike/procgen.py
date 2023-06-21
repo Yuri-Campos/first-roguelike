@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import random
 import tcod
+import entity_factories
 
 from typing import Iterator, Tuple, List, TYPE_CHECKING
 from game_map import GameMap
@@ -55,9 +56,9 @@ def place_entities(
 
         if not any(entity.x == x and entity.y == y for entity in dungeon.entities):
             if random.random() < 0.8:
-                pass #TODO: Add infantry here
+                entity_factories.infantry.spawn(dungeon, x, y) 
             else:
-                pass #TODO: Add machineman here
+                entity_factories.infantry.spawn(dungeon, x, y)
 
 def tunnel_between(start: Tuple[int, int], end: Tuple[int, int]) -> Iterator[Tuple[int, int]]:
     x1, y1 = start
