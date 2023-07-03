@@ -1,6 +1,6 @@
 import tcod.event
 from typing import Optional
-from actions import Action, EscapeAction, MovementAction
+from actions import Action, EscapeAction, BumpAction
 
 '''
 The EventHandler class is a subclass of the tcod EventDispatch class
@@ -16,13 +16,13 @@ class EventHandler(tcod.event.EventDispatch[Action]):
 
         match key:
             case tcod.event.KeySym.UP:
-                action = MovementAction(dx = 0, dy = -1)
+                action = BumpAction(dx = 0, dy = -1)
             case tcod.event.KeySym.DOWN:
-                action = MovementAction(dx = 0, dy = 1)
+                action = BumpAction(dx = 0, dy = 1)
             case tcod.event.KeySym.LEFT:
-                action = MovementAction(dx = - 1, dy = 0)
+                action = BumpAction(dx = - 1, dy = 0)
             case tcod.event.KeySym.RIGHT:
-                action = MovementAction(dx = 1, dy = 0)
+                action = BumpAction(dx = 1, dy = 0)
             
             case tcod.event.KeySym.ESCAPE:
                 action = EscapeAction()

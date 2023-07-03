@@ -58,7 +58,7 @@ def place_entities(
             if random.random() < 0.8:
                 entity_factories.infantry.spawn(dungeon, x, y) 
             else:
-                entity_factories.infantry.spawn(dungeon, x, y)
+                entity_factories.machineman.spawn(dungeon, x, y)
 
 def tunnel_between(start: Tuple[int, int], end: Tuple[int, int]) -> Iterator[Tuple[int, int]]:
     x1, y1 = start
